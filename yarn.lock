@@ -1140,6 +1140,25 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
+"@nufi/dapp-client-cardano@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@nufi/dapp-client-cardano/-/dapp-client-cardano-0.0.1.tgz#5cbbee53e0400e7d3faa703c7573fbe9064063b5"
+  integrity sha512-Mb7iOZsDVZ0mRYfwfHuKcyGci+S/+oGGn+9mestXXiKIzSZdGmpY67c4ZlkidZuwIcYQaL7C2IrSUMR0HGNqRQ==
+  dependencies:
+    "@nufi/dapp-client-core" "0.0.1"
+
+"@nufi/dapp-client-core@0.0.1", "@nufi/dapp-client-core@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@nufi/dapp-client-core/-/dapp-client-core-0.0.1.tgz#7c6aeae2c303904ce9f6d5e8813bbe684b9af7c5"
+  integrity sha512-ZHoEbsBbDcJ9jAXnowdiUGdrcVg7lBMGyZtsaQtmqTY5Qyu6RsKJn+ZZtsjOT46xbeMdU5ymIughTgbxjWd1Tw==
+
+"@nufi/sso-button-react@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@nufi/sso-button-react/-/sso-button-react-0.0.1.tgz#4562ff9b62dec2c277412be482e095b83343d225"
+  integrity sha512-hM8LxkMs0IbpuIt3I5if+FlC1zotGhOT8idLZ7cnWN9066Q/jJ09oOR82gjLUMUNED3MLhhDwgvER7rJvg2NwQ==
+  dependencies:
+    classnames "^2.5.1"
+
 "@panva/hkdf@^1.0.1":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@panva/hkdf/-/hkdf-1.0.2.tgz#bab0f09d09de9fd83628220d496627681bc440d6"
@@ -1490,6 +1509,11 @@ chalk@^4.0.0:
   dependencies:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
+
+classnames@^2.5.1:
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.5.1.tgz#ba774c614be0f016da105c858e7159eae8e7687b"
+  integrity sha512-saHYOzhIQs6wy2sVxTM6bUDsQO4F50V9RQ22qBpEdCW+I+/Wmke2HOl6lS6dTpdxVhb88/I6+Hs+438c3lfUow==
 
 color-convert@^1.9.0:
   version "1.9.3"
