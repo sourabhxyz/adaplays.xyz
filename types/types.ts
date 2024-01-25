@@ -1,1 +1,1 @@
-export type SupportedWallets = "nami" | "eternl";
+export type SupportedWallets = "nufi";

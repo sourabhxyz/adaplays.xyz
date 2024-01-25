@@ -107,7 +107,7 @@ const ConnectButton = () => {
 
   // Note that this does not represent the currently connected wallet. Instead
   // it represents that wallet that user chooses during Connect wallet process.
-  const [_candidateWalletName, _setCandidateWalletName] = useState<SupportedWallets>('nami')
+  const [_candidateWalletName, _setCandidateWalletName] = useState<SupportedWallets>('nufi')
 
   // Note that this does not tell whether user is connected. This information is found in
   // "{data: {user: {wallet}}}" obtained from "useSession". This is only a state relevant
@@ -130,7 +130,7 @@ const ConnectButton = () => {
       setSelectWalletTapped(false);
     }, 200)
   }
-  const supportedWallets: SupportedWallets[] = ['nami', 'eternl']
+  const supportedWallets: SupportedWallets[] = ['nufi']
 
   const createPasswordSchema = yup.object().shape({
     password: yup
@@ -179,7 +179,7 @@ const ConnectButton = () => {
           wrongNetwork.onOpen()
         } else {
           _setCandidateWalletName(walletName)
-          setWalletConnectedFinished(await window.cardano.nami.isEnabled())
+          setWalletConnectedFinished(await window.cardano.nufi.isEnabled())
         }
       } catch (e) {
         console.error(e);
