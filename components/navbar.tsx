@@ -199,7 +199,7 @@ const ConnectButton = () => {
       <Popover onClose={resetStatus}>
         <PopoverTrigger>
           <Button {...connectbuttonStyle}>
-            Connect
+            Connect Wallet
           </Button>
         </PopoverTrigger>
         {walletConnectFinished === false
