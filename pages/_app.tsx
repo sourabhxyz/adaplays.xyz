@@ -6,6 +6,7 @@ import Navbar from '../components/navbar'
 import { SessionProvider } from "next-auth/react"
 import { Session } from 'next-auth'
 import { headingTheme } from 'theme/components/heading'
+import '@nufi/sso-button-react/dist/style.css'
 
 const theme = extendTheme({
   fonts: {

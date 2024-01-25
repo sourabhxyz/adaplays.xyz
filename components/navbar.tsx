@@ -4,7 +4,7 @@
 import type { User } from "next-auth"
 import type { SupportedWallets } from '../types/types'
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import NextLink from 'next/link';
 import { navHeight } from 'constants/global';
 import { WalletApi, Lucid } from "lucid-cardano";
@@ -40,6 +40,10 @@ import YupPassword from 'yup-password'
 YupPassword(yup)
 import { brandButtonStyle } from 'theme/simple'
 import { getApi, getLucid } from "utils/lucid/lucid";
+import nufiCoreSdk, { SocialLoginInfo } from '@nufi/dapp-client-core'
+import {initNufiDappCardanoSdk} from '@nufi/dapp-client-cardano'
+import {SsoButton} from '@nufi/sso-button-react'
+import styles from './navbar.module.css'
 
 export default function Navbar() {
   const [logoHover, setLogoHover] = useState<boolean>(false);
@@ -103,7 +107,9 @@ export default function Navbar() {
 }
 
 const ConnectButton = () => {
-  const { status } = useSession()
+  const { status, data } = useSession()
+
+  const [ssoUserInfo, setSSOUserInfo] = useState<null | SocialLoginInfo>(null)
 
   // Note that this does not represent the currently connected wallet. Instead
   // it represents that wallet that user chooses during Connect wallet process.
@@ -123,6 +129,27 @@ const ConnectButton = () => {
   const cancelRefWalletNotFound = useRef(null)
   const wrongNetwork = useDisclosure()
   const cancelRefWrongNetwork = useRef(null)
+
+  useEffect(() => {
+    nufiCoreSdk.init('https://nufi-testnet-staging.herokuapp.com')
+      
+    // Listen for SSO session info
+    const currentSSOInfo = nufiCoreSdk.getApi().onSocialLoginInfoChanged((data) => {
+      setSSOUserInfo(data)
+    })
+    setSSOUserInfo(currentSSOInfo)
+  }, [])
+
+  // Ensure that widget is shown on page refresh if authenticated
+  useEffect(() => {
+    const fn = async () => {
+      if (status === 'authenticated' && data.user.wallet === 'nufiSSO') {
+        initNufiDappCardanoSdk(nufiCoreSdk, 'sso')
+        await window.cardano.nufiSSO.enable()
+      }
+    }
+    fn()
+  }, [status, data])
 
   const resetStatus = () => {
     // why setTimeout? Well because there is a slight delay in closing of Popover.
@@ -166,6 +193,11 @@ const ConnectButton = () => {
     resetStatus();
     await signOut({ redirect: false });
     setIsDisconnecting(false);
+
+    // As there is no such method in CIP-30 we need to close widget manually
+    if (data?.user.wallet === 'nufiSSO') {
+      nufiCoreSdk.getApi().hideWidget()
+    }
   }
 
   const connectWallet = async (walletName: SupportedWallets) => {
@@ -181,7 +213,7 @@ const ConnectButton = () => {
           wrongNetwork.onOpen()
         } else {
           _setCandidateWalletName(walletName)
-          setWalletConnectedFinished(await window.cardano.nufi.isEnabled())
+          setWalletConnectedFinished(await window.cardano[walletName].isEnabled())
         }
       } catch (e) {
         console.error(e);
@@ -200,14 +232,35 @@ const ConnectButton = () => {
     <>
       <SimpleAlert {...{ isOpen: walletNotFound.isOpen, onClose: () => { resetStatus(); walletNotFound.onClose() }, cancelRef: cancelRefWalletNotFound, message: "You don't have the selected wallet installed." }} />
       <SimpleAlert {...{ isOpen: wrongNetwork.isOpen, onClose: () => { resetStatus(); wrongNetwork.onClose() }, cancelRef: cancelRefWrongNetwork, message: "You have selected wrong network, please switch to Preprod." }} />
+      
       <Popover onClose={resetStatus}>
+        <PopoverTrigger>
+          {/* Wrapped in extra button as the current Popover logic of this
+          dapp is designed to work this way. Should not be needed in other dapps. */}
+          <Button {...connectbuttonStyle} border="none" margin={0} padding={0}>
+            <SsoButton
+              state="logged_out"
+              label="Social login"
+              isLoading={isConnecting}
+              onLogin={() => {
+                _setCandidateWalletName('nufiSSO')
+                initNufiDappCardanoSdk(nufiCoreSdk, 'sso');
+                connectWallet('nufiSSO')
+              }}
+              classes={{
+                base: styles.ssoButton
+              }}
+            />
+          </Button>
+        </PopoverTrigger>
         <PopoverTrigger>
           <Button {...connectbuttonStyle}>
             Connect Wallet
           </Button>
         </PopoverTrigger>
         {walletConnectFinished === false
-          ? <PopoverContent>
+          ? _candidateWalletName !== 'nufiSSO' ? 
+          (<PopoverContent>
             <PopoverHeader {...popoverHeaderStyle}>
               Select wallet
             </PopoverHeader>
@@ -225,7 +278,7 @@ const ConnectButton = () => {
                 <Text align='center'> ✤ step 1 of 2 ✤ </Text>
               </PopoverFooter>
             </PopoverBody>
-          </PopoverContent>
+          </PopoverContent>) : null
           : <PopoverContent>
             <PopoverHeader {...popoverHeaderStyle}>
               Create session password
@@ -282,8 +335,25 @@ const ConnectButton = () => {
       </Popover>
     </>
   ); else return (
-    <Button {...connectbuttonStyle} onClick={() => disconnecting()} isLoading={isDisconnecting} >
-      Disconnect
-    </Button>
+    <>
+      {data?.user.wallet === 'nufiSSO' ? (
+        <SsoButton
+          state="logged_in"
+          label={ssoUserInfo?.email || 'Connected'}
+          userInfo={{
+            provider: ssoUserInfo?.typeOfLogin
+          }}
+          isLoading={isDisconnecting}
+          onLogout={() => disconnecting()}
+          classes={{
+            base: styles.ssoButton
+          }}
+        />
+      ) : (
+      <Button {...connectbuttonStyle} onClick={() => disconnecting()} isLoading={isDisconnecting} >
+        Disconnect
+      </Button>
+      )}
+    </>
   );
 }
