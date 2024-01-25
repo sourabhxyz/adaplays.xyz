@@ -116,6 +116,7 @@ const ConnectButton = () => {
 
   const [selectWalletTapped, setSelectWalletTapped] = useState<boolean>(false)
   const [isDisconnecting, setIsDisconnecting] = useState<boolean>(false)
+  const [isConnecting, setIsConnecting] = useState<boolean>(false)
 
   // I have two alert setup, one fires up when selected wallet is not installed in the browser and other one when enabled wallet is on wrong network
   const walletNotFound = useDisclosure()
@@ -172,6 +173,7 @@ const ConnectButton = () => {
       walletNotFound.onOpen();
     } else {
       try {
+        setIsConnecting(true)
         const api: WalletApi = await getApi(walletName)
         // In case the above connection fails, the whole component fails so I guess nothing to worry.
         const networkId = await api.getNetworkId();
@@ -184,6 +186,8 @@ const ConnectButton = () => {
       } catch (e) {
         console.error(e);
         resetStatus();
+      } finally {
+        setIsConnecting(false)
       }
     }
   }
