@@ -64,7 +64,7 @@ export default function Navbar() {
           onMouseLeave={() => setLogoHover(false)}
         >
           <HStack>
-            <Heading variant='brand' position='relative' left='10px' bg='white' zIndex='1' borderRightRadius='full'>
+            <Heading variant='brand' position='relative' left='10px' bg='white' borderRightRadius='full'>
               adaplays
             </Heading>
             <Logo />
