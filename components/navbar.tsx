@@ -104,8 +104,16 @@ export default function Navbar() {
 
 const ConnectButton = () => {
   const { status } = useSession()
-  const [_walletName, _setWalletName] = useState<SupportedWallets>('nami')
-  const [walletConnected, setWalletConnected] = useState<boolean>(false)
+
+  // Note that this does not represent the currently connected wallet. Instead
+  // it represents that wallet that user chooses during Connect wallet process.
+  const [_candidateWalletName, _setCandidateWalletName] = useState<SupportedWallets>('nami')
+
+  // Note that this does not tell whether user is connected. This information is found in
+  // "{data: {user: {wallet}}}" obtained from "useSession". This is only a state relevant
+  // for the Connect wallet process.
+  const [walletConnectFinished, setWalletConnectedFinished] = useState<boolean>(false)
+
   const [selectWalletTapped, setSelectWalletTapped] = useState<boolean>(false)
   const [isDisconnecting, setIsDisconnecting] = useState<boolean>(false)
 
@@ -118,7 +126,7 @@ const ConnectButton = () => {
   const resetStatus = () => {
     // why setTimeout? Well because there is a slight delay in closing of Popover.
     setTimeout(() => {
-      setWalletConnected(false);
+      setWalletConnectedFinished(false);
       setSelectWalletTapped(false);
     }, 200)
   }
@@ -170,8 +178,8 @@ const ConnectButton = () => {
         if (networkId !== 0) {
           wrongNetwork.onOpen()
         } else {
-          _setWalletName(walletName)
-          setWalletConnected(await window.cardano.nami.isEnabled())
+          _setCandidateWalletName(walletName)
+          setWalletConnectedFinished(await window.cardano.nami.isEnabled())
         }
       } catch (e) {
         console.error(e);
@@ -194,7 +202,7 @@ const ConnectButton = () => {
             Connect
           </Button>
         </PopoverTrigger>
-        {walletConnected === false
+        {walletConnectFinished === false
           ? <PopoverContent>
             <PopoverHeader {...popoverHeaderStyle}>
               Select wallet
@@ -228,9 +236,9 @@ const ConnectButton = () => {
                 initialValues={{ password: '', confirmPassword: '' }}
                 validationSchema={createPasswordSchema}
                 onSubmit={async (values, actions) => {
-                  const lucid: Lucid = await getLucid(_walletName)
+                  const lucid: Lucid = await getLucid(_candidateWalletName)
                   const walletAddress = await lucid.wallet.address()
-                  const cred: User = { id: walletAddress, password: values.password, wallet: _walletName }
+                  const cred: User = { id: walletAddress, password: values.password, wallet: _candidateWalletName }
                   // spread is used because: https://bobbyhadz.com/blog/typescript-index-signature-for-type-is-missing-in-type
                   await signIn('credentials', { ...cred, redirect: false })
                   actions.resetForm()
