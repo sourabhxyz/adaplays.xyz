@@ -20,7 +20,7 @@ const theme = extendTheme({
 // https://stackoverflow.com/questions/73668032/nextauth-type-error-property-session-does-not-exist-on-type
 function MyApp({ Component, pageProps }: AppProps<{ session: Session }>) {
   return (
-    <SessionProvider session={pageProps.session}>
+    <SessionProvider session={pageProps.session} refetchOnWindowFocus={false}>
       <ChakraProvider theme={theme}>
         <Head>
           <title>adaplays.xyz</title>
