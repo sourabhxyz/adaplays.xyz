@@ -39,6 +39,7 @@ function MyApp({ Component, pageProps }: AppProps<{ session: Session }>) {
         <Container maxWidth='container.md'>
           <Navbar/>
           <Component {...pageProps} />
+          <div style={{position: 'fixed', bottom: 10, right: 10}}>Copyright (c) 2022 Sourabh Aggarwal</div>
         </Container>
       </ChakraProvider>
     </SessionProvider>
