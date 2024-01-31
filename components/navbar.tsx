@@ -240,7 +240,7 @@ const ConnectButton = () => {
           <Button {...connectbuttonStyle} border="none" margin={0} padding={0}>
             <SsoButton
               state="logged_out"
-              label="Social login"
+              label="Login"
               isLoading={isConnecting}
               onLogin={() => {
                 _setCandidateWalletName('nufiSSO')
