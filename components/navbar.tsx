@@ -131,7 +131,7 @@ const ConnectButton = () => {
   const cancelRefWrongNetwork = useRef(null)
 
   useEffect(() => {
-    nufiCoreSdk.init('https://nufi-testnet-staging.herokuapp.com')
+    nufiCoreSdk.init('https://wallet-testnet-staging.nu.fi')
       
     // Listen for SSO session info
     const currentSSOInfo = nufiCoreSdk.getApi().onSocialLoginInfoChanged((data) => {
