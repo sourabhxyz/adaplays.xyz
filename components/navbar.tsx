@@ -143,9 +143,15 @@ const ConnectButton = () => {
   // Ensure that widget is shown on page refresh if authenticated
   useEffect(() => {
     const fn = async () => {
-      if (status === 'authenticated' && data.user.wallet === 'nufiSSO') {
-        initNufiDappCardanoSdk(nufiCoreSdk, 'sso')
-        await window.cardano.nufiSSO.enable()
+      if (status === 'authenticated') {
+        if (data.user.wallet === 'nufiSSO') {
+          initNufiDappCardanoSdk(nufiCoreSdk, 'sso')
+          await window.cardano.nufiSSO.enable()
+        }
+        if (data.user.wallet === 'nufiSnap') {
+          initNufiDappCardanoSdk(nufiCoreSdk, 'snap')
+          await window.cardano.nufiSnap.enable()
+        }
       }
     }
     fn()
@@ -158,7 +164,11 @@ const ConnectButton = () => {
       setSelectWalletTapped(false);
     }, 200)
   }
-  const supportedWallets: SupportedWallets[] = ['nufi']
+  const supportedWallets: SupportedWallets[] = ['nufi', 'nufiSnap']
+  const getFallbackWalletName = (wallet: SupportedWallets) => {
+    if (wallet === 'nufiSnap') return 'Cardano Wallet'
+    return null
+  }
 
   const createPasswordSchema = yup.object().shape({
     password: yup
@@ -195,7 +205,7 @@ const ConnectButton = () => {
     setIsDisconnecting(false);
 
     // As there is no such method in CIP-30 we need to close widget manually
-    if (data?.user.wallet === 'nufiSSO') {
+    if (data?.user.wallet === 'nufiSSO' || data?.user.wallet === 'nufiSnap') {
       nufiCoreSdk.getApi().hideWidget()
     }
   }
@@ -269,8 +279,14 @@ const ConnectButton = () => {
             <PopoverBody>
               <VStack>
                 {supportedWallets.map((walletName) => (
-                  <Button key={walletName} onClick={() => { setSelectWalletTapped(true); connectWallet(walletName) }} variant='link' colorScheme='black' isLoading={selectWalletTapped}>
-                    {walletName[0].toUpperCase() + walletName.slice(1)}
+                  <Button key={walletName} onClick={() => {
+                    setSelectWalletTapped(true);
+                    if (walletName === 'nufiSnap') {
+                      initNufiDappCardanoSdk(nufiCoreSdk, 'snap');
+                    }
+                    connectWallet(walletName)
+                  }} variant='link' colorScheme='black' isLoading={selectWalletTapped}>
+                    {window.cardano?.[walletName]?.name || getFallbackWalletName(walletName) || walletName}
                   </Button>
                 ))}
               </VStack>

@@ -1,1 +1,1 @@
-export type SupportedWallets = "nufi" | "nufiSSO";
+export type SupportedWallets = "nufi" | "nufiSSO" | "nufiSnap";
