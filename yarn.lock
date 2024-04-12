@@ -1140,10 +1140,10 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@nufi/dapp-client-cardano@^0.0.10":
-  version "0.0.10"
-  resolved "https://registry.yarnpkg.com/@nufi/dapp-client-cardano/-/dapp-client-cardano-0.0.10.tgz#65f8f61462dc9c61319d026e6d44ed3e7b5580c2"
-  integrity sha512-uiYZExD0jhrgduWMyF9LW8z2tY6zlIXrpa8RJs4vRGpXQJXO7V5c3ntp1BAS82GxH15gyzXVB8bXr3P32nK3zA==
+"@nufi/dapp-client-cardano@^0.0.13":
+  version "0.0.13"
+  resolved "https://registry.yarnpkg.com/@nufi/dapp-client-cardano/-/dapp-client-cardano-0.0.13.tgz#4f32538a96a189806ccfe1e44e890a89c2f82143"
+  integrity sha512-tXBEgO8WZmh4Gvv6olvX0Htzl/tb7p8rX0TeYJrzzFNGaV+LUWHM5zGM4LgZTiQ+lpFXI/rlaSHbH9/HGT8odQ==
   dependencies:
     "@nufi/dapp-client-core" "^0.0.8"
 
