@@ -166,7 +166,8 @@ const ConnectButton = () => {
   }
   const supportedWallets: SupportedWallets[] = ['nufi', 'nufiSnap']
   const getFallbackWalletName = (wallet: SupportedWallets) => {
-    if (wallet === 'nufiSnap') return 'Cardano Wallet'
+    if (wallet === 'nufi') return 'NuFi'
+    if (wallet === 'nufiSnap') return 'Metamask'
     return null
   }
 
@@ -286,7 +287,7 @@ const ConnectButton = () => {
                     }
                     connectWallet(walletName)
                   }} variant='link' colorScheme='black' isLoading={selectWalletTapped}>
-                    {window.cardano?.[walletName]?.name || getFallbackWalletName(walletName) || walletName}
+                    {getFallbackWalletName(walletName) || walletName}
                   </Button>
                 ))}
               </VStack>
