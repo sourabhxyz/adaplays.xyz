@@ -108,6 +108,7 @@ export default function Navbar() {
 
 const ConnectButton = () => {
   const { status, data } = useSession()
+  const [metamaskInstalled, setMetamaskInstalled] = useState(false)
 
   const [ssoUserInfo, setSSOUserInfo] = useState<null | SocialLoginInfo>(null)
 
@@ -132,6 +133,10 @@ const ConnectButton = () => {
 
   useEffect(() => {
     nufiCoreSdk.init('https://wallet-testnet-staging.nu.fi')
+
+    nufiCoreSdk.getApi().isMetamaskInstalled().then((isMetamaskInstalled) => {
+      setMetamaskInstalled(isMetamaskInstalled)
+    })
       
     // Listen for SSO session info
     const currentSSOInfo = nufiCoreSdk.getApi().onSocialLoginInfoChanged((data) => {
@@ -164,7 +169,11 @@ const ConnectButton = () => {
       setSelectWalletTapped(false);
     }, 200)
   }
-  const supportedWallets: SupportedWallets[] = ['nufi', 'nufiSnap']
+  const supportedWallets: SupportedWallets[] = ['nufi']
+  if (metamaskInstalled) {
+    supportedWallets.push('nufiSnap')
+  }
+
   const getFallbackWalletName = (wallet: SupportedWallets) => {
     if (wallet === 'nufi') return 'NuFi'
     if (wallet === 'nufiSnap') return 'Metamask'

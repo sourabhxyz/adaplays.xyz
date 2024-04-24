@@ -989,6 +989,11 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
+"@metamask/detect-provider@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@metamask/detect-provider/-/detect-provider-2.0.0.tgz#4bc2795e5e6f7d8b84b2e845058d2f222c99917d"
+  integrity sha512-sFpN+TX13E9fdBDh9lvQeZdJn4qYoRb/6QF2oZZK/Pn559IhCFacPMU1rMuqyXoFQF3JSJfii2l98B87QDPeCQ==
+
 "@motionone/animation@^10.12.0":
   version "10.14.0"
   resolved "https://registry.yarnpkg.com/@motionone/animation/-/animation-10.14.0.tgz#2f2a3517183bb58d82e389aac777fe0850079de6"
@@ -1140,17 +1145,19 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@nufi/dapp-client-cardano@^0.0.13":
-  version "0.0.13"
-  resolved "https://registry.yarnpkg.com/@nufi/dapp-client-cardano/-/dapp-client-cardano-0.0.13.tgz#4f32538a96a189806ccfe1e44e890a89c2f82143"
-  integrity sha512-tXBEgO8WZmh4Gvv6olvX0Htzl/tb7p8rX0TeYJrzzFNGaV+LUWHM5zGM4LgZTiQ+lpFXI/rlaSHbH9/HGT8odQ==
+"@nufi/dapp-client-cardano@^0.0.14":
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/@nufi/dapp-client-cardano/-/dapp-client-cardano-0.0.14.tgz#2e9dcb4c85367cdaaa306f1d44b738cd0c99bed2"
+  integrity sha512-RBjeSpCUiH8Q/JMbc/cSGfI9vlndXGor3L5PkjVrqGlQp8GpSeg04BEpG5aOIC2U0tufG8uCAcIQtnEA19IzMQ==
   dependencies:
-    "@nufi/dapp-client-core" "^0.0.8"
+    "@nufi/dapp-client-core" "0.0.9"
 
-"@nufi/dapp-client-core@^0.0.8":
-  version "0.0.8"
-  resolved "https://registry.yarnpkg.com/@nufi/dapp-client-core/-/dapp-client-core-0.0.8.tgz#593c8457c3c8004999a195c10a32f9126c0bde11"
-  integrity sha512-cDv4oHeMD5Y5kXtmrvv3eQh4fOvoixWt4DoHz5ZqVr1YNDDP28wM9hequsvwjQ2jPKx/5fz1ldbrtzr3Lx/W3Q==
+"@nufi/dapp-client-core@0.0.9", "@nufi/dapp-client-core@^0.0.9":
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/@nufi/dapp-client-core/-/dapp-client-core-0.0.9.tgz#7b88c6092a840cd29718030aff53cb2febe9ff9b"
+  integrity sha512-HQ3hWfRweYoYRO99vz8/4efihLsFqlm44rcXce1bGojxWQsOmM4GgiPZ4JOM9fd+sUqUFGMtgUAJOCuREAO3jg==
+  dependencies:
+    "@metamask/detect-provider" "^2.0.0"
 
 "@nufi/sso-button-react@^0.0.2":
   version "0.0.2"
