@@ -132,7 +132,12 @@ const ConnectButton = () => {
   const cancelRefWrongNetwork = useRef(null)
 
   useEffect(() => {
-    nufiCoreSdk.init('https://wallet-testnet-staging.nu.fi')
+    // Due to internal testing, normally the URL is expected to come
+    // up from ENV or being simply hardcoded.
+    const searchParams = new URLSearchParams(window.location.search)
+    const nufiDomain = decodeURIComponent(searchParams.get('nufiDomain') || '') || 'https://wallet-testnet-staging.nu.fi'
+
+    nufiCoreSdk.init(nufiDomain)
 
     nufiCoreSdk.getApi().isMetamaskInstalled().then((isMetamaskInstalled) => {
       setMetamaskInstalled(isMetamaskInstalled)
