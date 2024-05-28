@@ -30,13 +30,13 @@ const Home: NextPage = () => {
         {"⚠ Caution"}
       </Heading>
       <Text mt='10px'>
-        {"Their is no guarantee that the site and the associated smart contracts are free from any security vulnerabilities. The entire code base is open source and any scrutiny is appreciated."}
+        {"Their is no guarantee that the Dapp and the associated smart contracts are free from any security vulnerabilities. The entire code base is open source and any scrutiny is appreciated."}
       </Text>
       <Heading variant='brandUnderline' mt='30px'>
         {"🛈 Note"}
       </Heading>
       <Text mt='10px'>
-        {"A. Currently the site is on Cardano's Preproduction test network. Kindly make sure that when interacting with this site, you are on that network."}
+        {"A. Currently the Dapp is on Cardano's 'preprod' network. Kindly make sure that when interacting with Dapp functionality, you are on that network. Use 'mainnet' network to test NuFi On/Off Ramp and Dex integration."}
       </Text>
       <Text mt='10px'>
         {"B. Use HTTPS and for best experience, try to have your system clock close to actual."}

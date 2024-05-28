@@ -256,7 +256,7 @@ const ConnectButton = () => {
   ); else if (status === 'unauthenticated') return (
     <>
       <SimpleAlert {...{ isOpen: walletNotFound.isOpen, onClose: () => { resetStatus(); walletNotFound.onClose() }, cancelRef: cancelRefWalletNotFound, message: "You don't have the selected wallet installed." }} />
-      <SimpleAlert {...{ isOpen: wrongNetwork.isOpen, onClose: () => { resetStatus(); wrongNetwork.onClose() }, cancelRef: cancelRefWrongNetwork, message: "You have selected wrong network, please switch to Preprod." }} />
+      <SimpleAlert {...{ isOpen: wrongNetwork.isOpen, onClose: () => { resetStatus(); wrongNetwork.onClose() }, cancelRef: cancelRefWrongNetwork, title: "Note", message: "You are not using 'preprod' network. Note that functionality of this Dapp can not be tested in this setup. However, if you are using 'mainnet' network, you can test NuFi On/Off Ramp and Dex integration." }} />
       
       <Popover onClose={resetStatus}>
         <PopoverTrigger>

@@ -13,9 +13,10 @@ export type SimpleAlertProps = {
   onClose: () => void,
   cancelRef: MutableRefObject<null>,
   message: string
+  title?: string
 }
 
-const SimpleAlert = ({ isOpen, onClose, cancelRef, message }: SimpleAlertProps) => {
+const SimpleAlert = ({ isOpen, onClose, cancelRef, message, title = 'Error' }: SimpleAlertProps) => {
   return (
     <AlertDialog
       motionPreset='slideInBottom'
@@ -26,7 +27,7 @@ const SimpleAlert = ({ isOpen, onClose, cancelRef, message }: SimpleAlertProps) 
     >
       <AlertDialogOverlay />
       <AlertDialogContent pb='10px'>
-        <AlertDialogHeader>Error</AlertDialogHeader>
+        <AlertDialogHeader>{title}</AlertDialogHeader>
         <AlertDialogCloseButton />
         <AlertDialogBody>
           {message}
