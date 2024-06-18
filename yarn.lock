@@ -1159,10 +1159,10 @@
   dependencies:
     "@metamask/detect-provider" "^2.0.0"
 
-"@nufi/sso-button-react@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@nufi/sso-button-react/-/sso-button-react-0.0.2.tgz#d5ddfa6ed9cd2903ef1623375210e163ef94f6ed"
-  integrity sha512-7sU8EdSg/Cb3P+sQJelpS1Hc7lPgbXtjnC0ShF4dvAUWkaS+eqtZPsq56fb6EbdBf3Je4HWM9PRMcqcD0y8bCA==
+"@nufi/sso-button-react@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@nufi/sso-button-react/-/sso-button-react-0.0.3.tgz#3e8472f17aecf74794b4bf75b1cfe20f5d2cc5d0"
+  integrity sha512-Kd/vSEDt3UJT16jNZxyHQvSCfo0jFCBquP9zVagqZCFTB78deHRL8KBtdd8mjD6ZP5/FMlgpZP2fFIB0ot/l4A==
   dependencies:
     classnames "^2.5.1"
 
