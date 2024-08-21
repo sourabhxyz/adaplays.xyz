@@ -7,6 +7,7 @@ import { brandButtonStyle } from 'theme/simple'
 import ValidateGate from 'components/validate-gate'
 import { getApi } from 'utils/lucid/lucid';
 import { useSession } from 'next-auth/react';
+import nufiCoreSdk from '@nufi/dapp-client-core'
 
 const commonButtonProps = {...brandButtonStyle, mt:'10px', w:'350px', mb:'10px', h:'50px' }
 
@@ -55,6 +56,16 @@ const Home: NextPage = () => {
               console.log('signedMessage output: ', signedMessage)
             }}>
               Testing: Sign Message
+            </Button>
+            <Button {...commonButtonProps} onClick={() => {
+               nufiCoreSdk.getApi().showWidget('opened')
+              }}>
+              Testing: open widget
+            </Button>
+            <Button {...commonButtonProps} onClick={() => {
+                  nufiCoreSdk.getApi().showWidget('closed')
+              }}>
+              Testing: close widget
             </Button>
           </>
         )}
